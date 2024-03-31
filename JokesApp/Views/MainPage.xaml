@@ -46,13 +46,20 @@
                 TextColor="White" />
 
         </Border>
-        <Button
-            Grid.Row="3"
-            Margin="20,0,20,20"
-            Command="{Binding GetJokeCommand}"
-            CornerRadius="20"
-            HeightRequest="50"
-            Text="Get New Joke" />
+        <HorizontalStackLayout Grid.Row="3">
+            <Button
+                Margin="20,0,20,20"
+                Command="{Binding GetJokeCommand}"
+                CornerRadius="20"
+                HeightRequest="50"
+                Text="Get New Joke" />
+            <Button
+                Margin="20,0,20,20"
+                Command="{Binding SubmitJokeCommand}"
+                CornerRadius="20"
+                HeightRequest="50"
+                Text="Submit Joke" />
+        </HorizontalStackLayout>
     </Grid>
 
 </ContentPage>

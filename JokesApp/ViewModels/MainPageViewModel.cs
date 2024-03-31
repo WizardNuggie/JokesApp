@@ -23,6 +23,8 @@ namespace JokesApp.ViewModels
 
         public ICommand GetJokeCommand { get; private set; }
 
+        public ICommand SubmitJokeCommand { get; private set; }
+
         public MainPageViewModel(JokeService service) 
         {
             joke = null;
@@ -43,6 +45,19 @@ namespace JokesApp.ViewModels
               OnPropertyChanged(nameof(IsVisible));
 
             } );
+
+            SubmitJokeCommand= new Command(async () => { await SubmitJoke(); });
+        }
+
+        private async Task SubmitJoke()
+        {
+           OneLiner j = this.joke as OneLiner; 
+           MyJoke joke= new MyJoke() { Flags=j.Flags, Joke=j.Joke };
+            if (await service.SubmitJokeAsync(joke))
+               await AppShell.Current.DisplayAlert("Ha Ha Ha", "LOL", "Ok");
+            else
+                await AppShell.Current.DisplayAlert("DUH!", "SAD SO SAD!", "Ok");
+
         }
     }
 }

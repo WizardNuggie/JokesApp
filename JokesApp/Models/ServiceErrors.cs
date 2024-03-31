@@ -9,13 +9,14 @@ namespace JokesApp.Models
 
     public class ServiceError
     {
-        public bool error { get; set; }
-        public bool internalError { get; set; }
-        public int code { get; set; }
-        public string message { get; set; }
-        public string[] causedBy { get; set; }
-        public string additionalInfo { get; set; }
-        public long timestamp { get; set; }
+
+        public bool Error { get; set; }
+        public bool InternalError { get; set; }
+        public int Code { get; set; }
+        public string Message { get; set; }
+        public string[] CausedBy { get; set; }
+        public string AdditionalInfo { get; set; }
+        public long Timestamp { get; set; }
     }
 
 }
