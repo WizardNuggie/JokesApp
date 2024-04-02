@@ -59,6 +59,7 @@
                 CornerRadius="20"
                 HeightRequest="50"
                 Text="Submit Joke" />
+            <Picker SelectedItem="{Binding SelectedCat}" ItemsSource="{Binding Cats}" ItemDisplayBinding="{Binding .}" HeightRequest="50"/>
         </HorizontalStackLayout>
     </Grid>
 

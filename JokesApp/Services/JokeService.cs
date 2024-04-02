@@ -15,9 +15,9 @@ namespace JokesApp.Services
         
         HttpClient httpClient;//אובייקט לשליחת בקשות וקבלת תשובות מהשרת
 
-        JsonSerializerOptions options;//פרמטרים שישמשו אותנו להגדרות הjson
+        public JsonSerializerOptions options;//פרמטרים שישמשו אותנו להגדרות הjson
         
-       const string URL = $@"https://v2.jokeapi.dev/";//כתובת השרת
+       public const string URL = $@"https://v2.jokeapi.dev/";//כתובת השרת
 
         public JokeService()
         {
@@ -31,11 +31,31 @@ namespace JokesApp.Services
                 WriteIndented = true
             };
         }
+        public async Task<List<string>> GetCatsAsync()
+        {
+            HttpClient httpClient = new HttpClient();
+            HttpResponseMessage response = await httpClient.GetAsync($"{URL}categories");
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonString = await response.Content.ReadAsStringAsync();
+                try
+                {
+                    Categories cat = JsonSerializer.Deserialize<Categories>(jsonString, options);
+                    List<string> cats = cat.categories.ToList();
+                    return cats;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            return null;
+        }
 
         public async Task<Joke> GetRandomJoke()
         {
             Joke j = null;
-            HttpResponseMessage response = await httpClient.GetAsync($"{URL}joke/Any?safe-mode");
+            HttpResponseMessage response = await httpClient.GetAsync($"{URL}joke/Any?type=single?safe-mode");
 
             //if(response.StatusCode==System.Net.HttpStatusCode.OK)
            
