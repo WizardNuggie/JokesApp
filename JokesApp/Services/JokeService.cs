@@ -55,7 +55,7 @@ namespace JokesApp.Services
         public async Task<Joke> GetRandomJoke()
         {
             Joke j = null;
-            HttpResponseMessage response = await httpClient.GetAsync($"{URL}joke/Any?type=single?safe-mode");
+            HttpResponseMessage response = await httpClient.GetAsync($"{URL}joke/Any?type=single");
 
             //if(response.StatusCode==System.Net.HttpStatusCode.OK)
            
