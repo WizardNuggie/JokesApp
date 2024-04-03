@@ -59,7 +59,7 @@
                 CornerRadius="20"
                 HeightRequest="50"
                 Text="Submit Joke" />
-            <Picker SelectedIndex="{Binding SelectedCatIndex}" ItemsSource="{Binding Cats}" ItemDisplayBinding="{Binding .}" HeightRequest="50"/>
+            <Picker Title="Choose a category" SelectedItem="{Binding SelectedCat}" ItemsSource="{Binding Cats}" ItemDisplayBinding="{Binding .}" HeightRequest="50"/>
         </HorizontalStackLayout>
     </Grid>
 

@@ -12,12 +12,11 @@ namespace JokesApp.Services
 {
     public class JokeService
     {
-        
         HttpClient httpClient;//אובייקט לשליחת בקשות וקבלת תשובות מהשרת
 
         public JsonSerializerOptions options;//פרמטרים שישמשו אותנו להגדרות הjson
         
-       public const string URL = $@"https://v2.jokeapi.dev/";//כתובת השרת
+        public const string URL = $@"https://v2.jokeapi.dev/";//כתובת השרת
 
         public JokeService()
         {
@@ -33,7 +32,7 @@ namespace JokesApp.Services
         }
         public async Task<List<string>> GetCatsAsync()
         {
-            HttpClient httpClient = new HttpClient();
+            HttpClient httpClient = new();
             HttpResponseMessage response = await httpClient.GetAsync($"{URL}categories");
             if (response.IsSuccessStatusCode)
             {
@@ -52,10 +51,10 @@ namespace JokesApp.Services
             return null;
         }
 
-        public async Task<Joke> GetRandomJoke()
+        public async Task<Joke> GetRandomJoke(string cat)
         {
             Joke j = null;
-            HttpResponseMessage response = await httpClient.GetAsync($"{URL}joke/Any?type=single");
+            HttpResponseMessage response = await httpClient.GetAsync($"{URL}joke/{cat}?type=single");
 
             //if(response.StatusCode==System.Net.HttpStatusCode.OK)
            
@@ -90,7 +89,7 @@ namespace JokesApp.Services
         
         public async Task<bool> SubmitJokeAsync(MyJoke j)
         {
-            JsonSerializerOptions options= new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase } ;
+            JsonSerializerOptions options= new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
             
             //serialize the object
             string jsonString=JsonSerializer.Serialize(j,options);//serialize

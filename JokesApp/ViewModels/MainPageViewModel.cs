@@ -17,12 +17,12 @@ namespace JokesApp.ViewModels
         private Joke joke;
         private string setup;
         private string delivery;
-        private int selectedCatIndex;
+        private string selectedCat;
 
         public bool IsVisible { get => joke is TwoPartJoke; }
         public string SetUp { get => setup; set { setup = value; OnPropertyChanged(); } }
         public string Delivery { get => delivery; set { delivery = value; OnPropertyChanged(); } }  
-        public int SelectedCatIndex { get => selectedCatIndex; set { selectedCatIndex = value; OnPropertyChanged(); if (selectedCatIndex == -1) selectedCatIndex = 0; } }
+        public string SelectedCat { get => selectedCat; set { selectedCat = value; OnPropertyChanged(); if (selectedCat == null || selectedCat == "") SelectedCat = "Any"; } }
         public ObservableCollection<string> Cats { get; set; }
 
         public ICommand GetJokeCommand { get; private set; }
@@ -32,13 +32,13 @@ namespace JokesApp.ViewModels
         public MainPageViewModel(JokeService service) 
         {
             joke = null;
-            SelectedCatIndex = 0;
+            SelectedCat = "Any";
             this.service=service;
             Cats = new();
             GetCatsAsync();
             GetJokeCommand = new Command(async () =>
             {
-                joke = await service.GetRandomJoke();
+                joke = await service.GetRandomJoke(SelectedCat);
                 if (joke is OneLiner)
                 {
                     SetUp =((OneLiner)joke).Joke;
